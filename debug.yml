@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: Register output of uptime
+      command: uptime
+      register: reg_uptime
+
+    - name: Print registered output
+      debug:
+        var: reg_uptime
+
+    - name: Print msg if changed
+      debug:
+        msg: Command resulted in change!
+      when: reg_uptime is changed
